@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handlingMissile = void 0;
 const user_1 = require("../services/user");
+const missileService_1 = require("../services/missileService");
 const handlingMissile = (socket) => {
     //coonect shocket
     console.log(`[socket.io] New Connection ${socket.id}`);
@@ -34,7 +35,7 @@ const handlingMissile = (socket) => {
         if (!missileList)
             return;
         //check if arsanal can hit them
-        const isCanRnove = CheckIfCanRnove();
+        const isCanRnove = (0, missileService_1.CheckIfCanRnove)(missileList, defensiveMissile.missile.name);
         //check if can to rmove attack
         //send missele defensive
     });

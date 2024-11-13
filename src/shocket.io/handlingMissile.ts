@@ -3,6 +3,7 @@ import { io } from "../app";
 import { AttackMissile } from "../types/DTO/AttackMissile";
 import {  getAllMissileOfUser, returnMissileByNameFromUser, rmoveOneMissile } from "../services/user";
 import { DefensiveMissile } from "../types/DTO/DefensiveMissile";
+import { CheckIfCanRnove } from "../services/missileService";
 
 export const handlingMissile = (socket: Socket) => {
     //coonect shocket
@@ -46,7 +47,7 @@ export const handlingMissile = (socket: Socket) => {
         if(!missileList) return
 
         //check if arsanal can hit them
-        const isCanRnove = CheckIfCanRnove()
+        const isCanRnove = CheckIfCanRnove(missileList, defensiveMissile.missile.name)
         //check if can to rmove attack
         //send missele defensive
     })
