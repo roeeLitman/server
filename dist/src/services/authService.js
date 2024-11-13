@@ -22,7 +22,7 @@ const initDataBase = async () => {
         }
     }
     catch (err) {
-        console.log("eror blu blu blu");
+        console.log("eror");
         throw new Error("not init Data Base");
     }
 };

@@ -3,8 +3,8 @@ import ModelMissile from "../models/missiles"
 import ModelOrganization from "../models/organizations"
 import organizations from "../../organizations"
 
-export const initDataBase =  async () => {
-    try {
+export const initDataBase =  async () => {    
+    try {        
         // create sead for missiles
         for(const missile of missiles){
             const newMissile = new ModelMissile(missile) 
@@ -17,7 +17,7 @@ export const initDataBase =  async () => {
         }
 
     } catch (err) {
-        console.log("eror blu blu blu");
+        console.log("eror");
         throw new Error("not init Data Base")
     }
 }
