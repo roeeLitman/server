@@ -4,11 +4,14 @@ import cors from "cors";
 import http from 'http'
 import {Server} from 'socket.io'
 import authRouter from "./routes/authRouter";
+import { connectToDb } from "./config/connectToDb";
 
 
 const PORT = process.env.PORT || 770
 
 const app: Express = express()
+
+connectToDb()
 
 app.use(express.json());
 app.use(cors());
