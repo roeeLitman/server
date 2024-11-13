@@ -10,3 +10,23 @@ export const sid = async (req: Request, res: Response) => {
         res.sendStatus(400);
     }
 };
+
+
+export const register = async (req: Request, res: Response) => {
+    try {
+        const newUser = await createNewUser(req.body);
+        res.status(200).json(newUser)
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(400);
+    }
+};
+export const login = async (req: Request, res: Response) => {
+    try {
+        const token = await userLogin(req.body);
+        res.status(200).json(token)
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(400);
+    }
+};
