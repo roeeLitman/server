@@ -1,9 +1,10 @@
 import {Router} from "express"
+import { sid } from "../controllers/authController"
 
 
 const authRouter = Router()
 
-authRouter.post('/sid',)
+authRouter.post('/sid', sid)
 
 authRouter.post("/register",)
 
