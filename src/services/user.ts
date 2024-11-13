@@ -1,6 +1,6 @@
 import UserModel from "../models/user";
 
-export const returnMissileFromStorage = async (
+export const returnMissileByNameFromUser = async (
     nameMissile: string,
     user_id: string
 ) => {
@@ -31,5 +31,22 @@ export const rmoveOneMissile = async (nameMissile: string, user_id: string) => {
         }
     })
     userFromDb.save()
+
+};
+
+export const getAllMissileOfUser = async (user_id: string) => {
+
+    try { 
+        // found user
+        const userFromDb = await UserModel.findById(user_id)   
+        // if not found exist
+        if(!userFromDb) return
+        //get all missile from user
+        return userFromDb.detailsOnOrganization.resources.map((reso)=> {return reso.name})
+
+    } catch (err) {
+        console.log(err);
+        throw new Error("not can connect to db"); 
+    }
 
 };
