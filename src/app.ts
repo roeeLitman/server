@@ -10,6 +10,16 @@ import { connectToDb } from "./config/connectToDb";
 const PORT = process.env.PORT || 770
 
 const app: Express = express()
+const httpServer = http.createServer(app)
+export const io = new Server(httpServer, {
+    cors:{
+        origin: "*",
+        methods: "*"
+    }
+})
+
+io.on("connection", ()=>{console.log("you are connected");
+})
 
 connectToDb()
 
