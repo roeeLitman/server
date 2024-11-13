@@ -4,25 +4,27 @@ import { IOrganizations, organizationsSchema } from "./organizations";
 interface IUser extends Document {
     username:string
     password: string
-    DetailsOnOrganization: IOrganizations
+    detailsOnOrganization: IOrganizations
 }
 
 const userSchema = new Schema<IUser>({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String ,
         required: true
     },
-    DetailsOnOrganization: {
-        type:{name: String, resources:[{name: String, amount: Number}], budget: Number } ,
+    detailsOnOrganization: {
+        type:{name: String, resources:[{name: String, amount: Number}], budget: Number },
+        required: true
     }
 });
 
 
-export default model<IUser>("organizations", userSchema);
+export default model<IUser>("User", userSchema);
 
 
 

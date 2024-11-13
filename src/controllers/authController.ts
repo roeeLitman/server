@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { initDataBase } from "../services/authService";
+import { createNewUser, initDataBase, userLogin } from "../services/authService";
 
 export const sid = async (req: Request, res: Response) => {
     try {

@@ -15,7 +15,7 @@ const sid = async (req, res) => {
 exports.sid = sid;
 const register = async (req, res) => {
     try {
-        const newUser = await createNewUser(req.body);
+        const newUser = await (0, authService_1.createNewUser)(req.body);
         res.status(200).json(newUser);
     }
     catch (err) {
@@ -26,7 +26,7 @@ const register = async (req, res) => {
 exports.register = register;
 const login = async (req, res) => {
     try {
-        const token = await userLogin(req.body);
+        const token = await (0, authService_1.userLogin)(req.body);
         res.status(200).json(token);
     }
     catch (err) {
