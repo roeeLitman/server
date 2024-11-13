@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response) => {
         res.status(200).json(newUser)
     } catch (err) {
         console.log(err);
-        res.sendStatus(400);
+        res.status(400).json((err as Error).message);
     }
 };
 export const login = async (req: Request, res: Response) => {
@@ -27,6 +27,6 @@ export const login = async (req: Request, res: Response) => {
         res.status(200).json(token)
     } catch (err) {
         console.log(err);
-        res.sendStatus(400);
+        res.status(400).json((err as Error).message);
     }
 };
