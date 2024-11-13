@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.organizationsSchema = void 0;
 const mongoose_1 = require("mongoose");
-const organizationsSchema = new mongoose_1.Schema({
+exports.organizationsSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true
@@ -14,4 +15,4 @@ const organizationsSchema = new mongoose_1.Schema({
         type: Number,
     }
 });
-exports.default = (0, mongoose_1.model)("organizations", organizationsSchema);
+exports.default = (0, mongoose_1.model)("organizations", exports.organizationsSchema);
