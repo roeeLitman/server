@@ -10,6 +10,7 @@ const organizations_1 = __importDefault(require("../models/organizations"));
 const organizations_2 = __importDefault(require("../../organizations"));
 const user_1 = __importDefault(require("../models/user"));
 const bcrypt_1 = require("bcrypt");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const initDataBase = async () => {
     try {
         // create sead for missiles
@@ -34,11 +35,17 @@ const createNewUser = async (user) => {
         // hash password
         const encPass = await (0, bcrypt_1.hash)(user.password, 10);
         user.password = encPass;
-        //enter init orgnition
-        const initOrgnition = await organizations_1.default.findOne({ name: user.organizatio }).lean();
+        //create init orgnition and insert into user. organition
+        const initOrgnition = await organizations_1.default.findOne({
+            name: user.organizatio,
+        }).lean();
         if (!initOrgnition)
             throw new Error("not fond name of Orgnition");
-        user.detailsOnOrganization = { name: initOrgnition?.name, resources: initOrgnition?.resources, budget: initOrgnition?.budget };
+        user.detailsOnOrganization = {
+            name: initOrgnition?.name,
+            resources: initOrgnition?.resources,
+            budget: initOrgnition?.budget,
+        };
         //crete and save user
         const newUser = new user_1.default(user);
         //returen new user
@@ -52,14 +59,23 @@ const createNewUser = async (user) => {
 exports.createNewUser = createNewUser;
 const userLogin = async (user) => {
     try {
-        const encPass = await (0, bcrypt_1.hash)(user.password, 10);
-        user.password = encPass;
-        const newUser = new user_1.default(user);
-        return await newUser.save();
+        // found user by name and compare password 
+        const userFromDatabase = await user_1.default.findOne({ username: user.username }).lean();
+        if (!userFromDatabase)
+            throw new Error("user not found");
+        const match = await (0, bcrypt_1.compare)(user.password, userFromDatabase.password);
+        if (!match)
+            throw new Error("wrong password");
+        // if password compare create token
+        const token = jsonwebtoken_1.default.sign({
+            user_id: userFromDatabase._id,
+            username: userFromDatabase.username,
+            detailsOnOrganization: userFromDatabase.detailsOnOrganization,
+        }, process.env.JWT_SECRET, { expiresIn: "10m" });
+        return token;
     }
     catch (err) {
-        console.log(err);
-        throw new Error("Can't create new user");
+        throw err;
     }
 };
 exports.userLogin = userLogin;
