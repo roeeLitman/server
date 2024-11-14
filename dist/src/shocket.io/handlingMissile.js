@@ -54,16 +54,17 @@ const handlingMissile = (socket) => {
             return;
         //check if can to rmove attack
         const isTherTime = await (0, attackServise_1.thereEnoughTime)(defensiveMissile.id_attack, isCanRnove.speed);
+        if (!isTherTime)
+            return;
         //rmove attackfrom arry
-        if (isTherTime) {
-            setTimeOutArray.forEach((item) => {
-                if (item.socketId === defensiveMissile.socetId) {
-                    clearTimeout(item.idOfTimeOut);
-                }
-            });
-        }
+        setTimeOutArray.forEach((item) => {
+            if (item.socketId === defensiveMissile.socetId) {
+                clearTimeout(item.idOfTimeOut);
+            }
+        });
         // sub 1 from user defensive
         await (0, user_1.rmoveOneMissile)(isCanRnove.name, defensiveMissile.user_id);
+        socket.emit("missile-intercepted");
     });
 };
 exports.handlingMissile = handlingMissile;

@@ -91,18 +91,17 @@ export const handlingMissile = (socket: Socket) => {
                 defensiveMissile.id_attack,
                 isCanRnove.speed
             );
+            if (!isTherTime) return 
+
             //rmove attackfrom arry
-            if (isTherTime) {
-                setTimeOutArray.forEach((item) => {
-                    if (item.socketId === defensiveMissile.socetId) {
-                        clearTimeout(item.idOfTimeOut);
-                    }
-                });
-            }
+            setTimeOutArray.forEach((item) => {
+                if (item.socketId === defensiveMissile.socetId) {
+                    clearTimeout(item.idOfTimeOut);
+                }
+            })
             // sub 1 from user defensive
             await rmoveOneMissile(isCanRnove.name, defensiveMissile.user_id)
-
-
+            socket.emit("missile-intercepted")
         }
     );
 };
