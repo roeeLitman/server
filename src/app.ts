@@ -31,7 +31,7 @@ app.use(cors());
 
 app.use("/api/auth", authRouter)
 app.use("/api/organization", organizationRouter)
-app.use("/api/organization", userRouter)
+app.use("/api/user", userRouter)
 
 
 httpServer.listen(PORT, ()=> {

@@ -53,6 +53,7 @@ const getAllMissileOfUser = async (user_id) => {
 exports.getAllMissileOfUser = getAllMissileOfUser;
 const getDetailsFromDb = async (user_id) => {
     try {
+        console.log(user_id);
         const userFromDb = await user_1.default.findById(user_id).lean();
         if (!userFromDb)
             throw new Error("not found");

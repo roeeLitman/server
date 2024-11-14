@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { getDetailsFromDb } from "../services/user";
 
 export const getDetails = async (req: Request, res: Response) => {
-    try {
-        const details = await getDetailsFromDb((req as any).user._id);
+    try {        
+        const details = await getDetailsFromDb((req as any).user.user_id);
         res.status(200).json(details)
     } catch (err) {
         console.log(err);

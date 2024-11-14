@@ -10,6 +10,7 @@ export default (req: Request, res: Response, next: NextFunction): void => {
             return;
         }
         const payload = jwt.verify(token, process.env.JWT_SECRET as string);
+        
         (req as any).user = payload
         next()
     } catch (err) {

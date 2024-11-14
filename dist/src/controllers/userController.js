@@ -4,7 +4,7 @@ exports.getDetails = void 0;
 const user_1 = require("../services/user");
 const getDetails = async (req, res) => {
     try {
-        const details = await (0, user_1.getDetailsFromDb)(req.user._id);
+        const details = await (0, user_1.getDetailsFromDb)(req.user.user_id);
         res.status(200).json(details);
     }
     catch (err) {
