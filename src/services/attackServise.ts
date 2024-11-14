@@ -13,3 +13,9 @@ export const createNewAttack = async (username:string, nameOfMisselAttack: strin
     await newAttack.save()
     return (newAttack._id as Schema.Types.ObjectId)
 }
+
+export const updatStatusMissiles = async (id_attack:Schema.Types.ObjectId, status:string)=>{
+    const currentAttack = await AttackModel.findById(id_attack)
+    if(currentAttack?.status === MissilesStatus.Intercepted) return
+    AttackModel.findByIdAndUpdate(id_attack, {status: status})
+}
