@@ -28,6 +28,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/api/auth", authRouter_1.default);
 app.use("/api/organization", organizationRouter_1.default);
+app.use("/api/organization", UserRouter);
 httpServer.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
 });
