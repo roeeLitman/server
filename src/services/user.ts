@@ -51,3 +51,16 @@ export const getAllMissileOfUser = async (user_id: string) => {
 
 };
 
+export const getDetailsFromDb = async (user_id: string) => {
+    try {
+        const userFromDb = await UserModel.findById(user_id).lean()
+        if(!userFromDb) throw new Error("not found");
+        const {name, resources, budget} = userFromDb.detailsOnOrganization
+        return {username: userFromDb.username, detailsOnOrganization:{name , resources, budget} }
+
+    } catch (err) {
+        console.log(err);
+        throw new Error("not found")
+    }
+}
+

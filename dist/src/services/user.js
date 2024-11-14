@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllMissileOfUser = exports.rmoveOneMissile = exports.returnMissileByNameFromUser = void 0;
+exports.getDetailsFromDb = exports.getAllMissileOfUser = exports.rmoveOneMissile = exports.returnMissileByNameFromUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const returnMissileByNameFromUser = async (nameMissile, user_id) => {
     try {
@@ -51,3 +51,17 @@ const getAllMissileOfUser = async (user_id) => {
     }
 };
 exports.getAllMissileOfUser = getAllMissileOfUser;
+const getDetailsFromDb = async (user_id) => {
+    try {
+        const userFromDb = await user_1.default.findById(user_id).lean();
+        if (!userFromDb)
+            throw new Error("not found");
+        const { name, resources, budget } = userFromDb.detailsOnOrganization;
+        return { username: userFromDb.username, detailsOnOrganization: { name, resources, budget } };
+    }
+    catch (err) {
+        console.log(err);
+        throw new Error("not found");
+    }
+};
+exports.getDetailsFromDb = getDetailsFromDb;

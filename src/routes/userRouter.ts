@@ -2,11 +2,12 @@ import {Router} from "express"
 import { login, register, sid } from "../controllers/authController"
 import { getAllOrganization } from "../controllers/organizationController"
 import vetifyUser from "../middelwares/vetifyUser"
+import { getDetails } from "../controllers/userController"
 
 
-const organizationRouter = Router()
+const userRouter = Router()
 
-organizationRouter.get('/',vetifyUser ,getAllOrganization)
+userRouter.get('/',vetifyUser , getDetails)
 
 
-export default organizationRouter
+export default userRouter

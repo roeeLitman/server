@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const organizationController_1 = require("../controllers/organizationController");
 const vetifyUser_1 = __importDefault(require("../middelwares/vetifyUser"));
-const organizationRouter = (0, express_1.Router)();
-organizationRouter.get('/', vetifyUser_1.default, organizationController_1.getAllOrganization);
-exports.default = organizationRouter;
+const userController_1 = require("../controllers/userController");
+const userRouter = (0, express_1.Router)();
+userRouter.get('/', vetifyUser_1.default, userController_1.getDetails);
+exports.default = userRouter;
