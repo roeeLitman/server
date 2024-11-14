@@ -3,8 +3,9 @@ import { io } from "../app";
 import { AttackMissile } from "../types/DTO/AttackMissile";
 import {  getAllMissileOfUser, returnMissileByNameFromUser, rmoveOneMissile } from "../services/user";
 import { DefensiveMissile } from "../types/DTO/DefensiveMissile";
-import { CheckIfCanRnove } from "../services/missileService";
-import { createNewAttack } from "../services/attackServise";
+import { CheckIfCanRnove, getMissileByName } from "../services/missileService";
+import { createNewAttack, updatStatusMissiles } from "../services/attackServise";
+import { MissilesStatus } from "../types/enum/MissilesStatus";
 
 let setTimeOut = []
 
@@ -33,9 +34,12 @@ export const handlingMissile = (socket: Socket) => {
         //create new attac
         const id_attack = await createNewAttack(attackMissile.username, attackMissile.missile, new Date, attackMissile.loction)
 
+        //fet speed of missels for setTimeout
+        const misseileFromDb = await getMissileByName(attackMissile.missile)
+
         setTimeout(() => {
             updatStatusMissiles(id_attack, MissilesStatus.Hit);
-        }, speed! * 1000);
+        }, misseileFromDb.speed! * 1000);
     });
 
         //add to user attact missile

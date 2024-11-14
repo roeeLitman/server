@@ -4,6 +4,7 @@ exports.handlingMissile = void 0;
 const user_1 = require("../services/user");
 const missileService_1 = require("../services/missileService");
 const attackServise_1 = require("../services/attackServise");
+const MissilesStatus_1 = require("../types/enum/MissilesStatus");
 let setTimeOut = [];
 const handlingMissile = (socket) => {
     //coonect shocket
@@ -22,9 +23,11 @@ const handlingMissile = (socket) => {
         await (0, user_1.rmoveOneMissile)(attackMissile.missile, attackMissile.id_user);
         //create new attac
         const id_attack = await (0, attackServise_1.createNewAttack)(attackMissile.username, attackMissile.missile, new Date, attackMissile.loction);
+        //fet speed of missels for setTimeout
+        const misseileFromDb = await (0, missileService_1.getMissileByName)(attackMissile.missile);
         setTimeout(() => {
-            updatStatusMissiles(id_attack, MissilesStatus.Hit);
-        }, speed * 1000);
+            (0, attackServise_1.updatStatusMissiles)(id_attack, MissilesStatus_1.MissilesStatus.Hit);
+        }, misseileFromDb.speed * 1000);
     });
     //add to user attact missile
     //updat all users 
