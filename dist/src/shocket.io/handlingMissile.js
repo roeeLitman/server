@@ -23,6 +23,7 @@ const handlingMissile = (socket) => {
         await (0, user_1.rmoveOneMissile)(attackMissile.missile, attackMissile.id_user);
         //create new attac
         const id_attack = await (0, attackServise_1.createNewAttack)(attackMissile.username, attackMissile.missile, new Date(), attackMissile.loction);
+        console.log(id_attack);
         //fet speed of missels for setTimeout
         const misseileFromDb = await (0, missileService_1.getMissileByName)(attackMissile.missile);
         const idSetTimeOut = setTimeout(() => {

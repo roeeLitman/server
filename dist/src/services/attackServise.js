@@ -8,6 +8,7 @@ const attack_1 = __importDefault(require("../models/attack"));
 const MissilesStatus_1 = require("../types/enum/MissilesStatus");
 const missileService_1 = require("./missileService");
 const createNewAttack = async (username, nameOfMisselAttack, timeToHit, loction) => {
+    console.log(loction);
     const misseileFromDb = await (0, missileService_1.getMissileByName)(nameOfMisselAttack);
     const arrivedMissile = timeToHit.getTime() + misseileFromDb.speed * 1000;
     const newAttack = await new attack_1.default({ username, nameOfMissel: nameOfMisselAttack, timeToHit, status: MissilesStatus_1.MissilesStatus.Launched, loction, arrived_in: arrivedMissile });

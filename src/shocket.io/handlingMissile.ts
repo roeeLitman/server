@@ -47,6 +47,8 @@ export const handlingMissile = (socket: Socket) => {
             new Date(),
             attackMissile.loction
         );
+        console.log(id_attack);
+        
         
         //fet speed of missels for setTimeout
         const misseileFromDb = await getMissileByName(attackMissile.missile);

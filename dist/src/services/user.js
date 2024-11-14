@@ -29,7 +29,9 @@ const rmoveOneMissile = async (nameMissile, user_id) => {
         return;
     userFromDb?.detailsOnOrganization.resources.forEach((reso) => {
         if (reso.name === nameMissile) {
+            console.log(reso.amount);
             reso.amount -= 1;
+            console.log(reso.amount);
         }
     });
     userFromDb.save();

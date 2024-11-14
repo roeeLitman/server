@@ -5,7 +5,8 @@ import { getMissileByName } from "./missileService"
 
 
 export const createNewAttack = async (username:string, nameOfMisselAttack: string, timeToHit: Date, loction: string):Promise<Schema.Types.ObjectId> => {
-
+    console.log(loction);
+    
     const misseileFromDb = await getMissileByName(nameOfMisselAttack)
     const arrivedMissile = timeToHit.getTime() + misseileFromDb.speed! * 1000
 
