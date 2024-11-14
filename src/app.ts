@@ -8,6 +8,7 @@ import { connectToDb } from "./config/connectToDb";
 import { handlingMissile } from "./shocket.io/handlingMissile";
 import organizationRouter from "./routes/organizationRouter";
 import userRouter from "./routes/userRouter";
+import attackRouter from "./routes/attackRouter";
 
 
 const PORT = process.env.PORT || 770
@@ -32,6 +33,7 @@ app.use(cors());
 app.use("/api/auth", authRouter)
 app.use("/api/organization", organizationRouter)
 app.use("/api/user", userRouter)
+app.use("/api/attack", attackRouter)
 
 
 httpServer.listen(PORT, ()=> {

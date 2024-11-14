@@ -34,3 +34,13 @@ export const thereEnoughTime = async (id_attack:Schema.Types.ObjectId, speed:num
     return false
 
 }
+
+export const getAllAttackFromDb = async ()=>{
+    const listOfAttack = await AttackModel.find({}, {username:1, nameOfMissel:1, create_at:1, arrived_in:1, status:1 })
+    return listOfAttack
+}
+
+
+
+
+

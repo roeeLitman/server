@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.thereEnoughTime = exports.updatStatusMissiles = exports.createNewAttack = void 0;
+exports.getAllAttackFromDb = exports.thereEnoughTime = exports.updatStatusMissiles = exports.createNewAttack = void 0;
 const attack_1 = __importDefault(require("../models/attack"));
 const MissilesStatus_1 = require("../types/enum/MissilesStatus");
 const missileService_1 = require("./missileService");
@@ -35,3 +35,8 @@ const thereEnoughTime = async (id_attack, speed) => {
     return false;
 };
 exports.thereEnoughTime = thereEnoughTime;
+const getAllAttackFromDb = async () => {
+    const listOfAttack = await attack_1.default.find({}, { username: 1, nameOfMissel: 1, create_at: 1, arrived_in: 1, status: 1 });
+    return listOfAttack;
+};
+exports.getAllAttackFromDb = getAllAttackFromDb;
