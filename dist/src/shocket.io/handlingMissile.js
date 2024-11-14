@@ -5,7 +5,7 @@ const user_1 = require("../services/user");
 const missileService_1 = require("../services/missileService");
 const attackServise_1 = require("../services/attackServise");
 const MissilesStatus_1 = require("../types/enum/MissilesStatus");
-let setTimeOut = [];
+let setTimeOutArray = [];
 const handlingMissile = (socket) => {
     //coonect shocket
     console.log(`[socket.io] New Connection ${socket.id}`);
@@ -25,30 +25,32 @@ const handlingMissile = (socket) => {
         const id_attack = await (0, attackServise_1.createNewAttack)(attackMissile.username, attackMissile.missile, new Date, attackMissile.loction);
         //fet speed of missels for setTimeout
         const misseileFromDb = await (0, missileService_1.getMissileByName)(attackMissile.missile);
-        setTimeout(() => {
+        const idSetTimeOut = setTimeout(() => {
             (0, attackServise_1.updatStatusMissiles)(id_attack, MissilesStatus_1.MissilesStatus.Hit);
         }, misseileFromDb.speed * 1000);
+        //add socket.id and idSetTimeOut to global Array
+        setTimeOutArray.push({ socketId: socket.id, idOfTimeOut: idSetTimeOut });
+        //updat all users 
+        const socketId = socket.id;
+        socket.emit("new-attack", {
+            socketId,
+            misseileFromDb,
+            loction: attackMissile.loction,
+            create_at: new Date(),
+        });
     });
-    //add to user attact missile
-    //updat all users 
-    socket.emit("new-attack", {
-        missile,
-        loction: attackMissile.loction,
-        create_at: new Date(),
+    // listen to defensive missile
+    socket.on("defensive-missile", async (defensiveMissile) => {
+        //get missel of user
+        const missileList = await (0, user_1.getAllMissileOfUser)(defensiveMissile.user_id);
+        if (!missileList)
+            return;
+        //check if arsanal can hit them
+        const isCanRnove = await (0, missileService_1.CheckIfCanRnove)(missileList, defensiveMissile.missile.name);
+        if (!isCanRnove)
+            return;
+        //check if can to rmove attack
+        //send missele defensive
     });
 };
 exports.handlingMissile = handlingMissile;
-// listen to defensive missile
-socket.on("defensive-missile", async (defensiveMissile) => {
-    //get missel of user
-    const missileList = await (0, user_1.getAllMissileOfUser)(defensiveMissile.user_id);
-    if (!missileList)
-        return;
-    //check if arsanal can hit them
-    const isCanRnove = await (0, missileService_1.CheckIfCanRnove)(missileList, defensiveMissile.missile.name);
-    if (!isCanRnove)
-        return;
-    //check if can to rmove attack
-    //send missele defensive
-});
-;

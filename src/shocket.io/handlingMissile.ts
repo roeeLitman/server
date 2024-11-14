@@ -7,7 +7,7 @@ import { CheckIfCanRnove, getMissileByName } from "../services/missileService";
 import { createNewAttack, updatStatusMissiles } from "../services/attackServise";
 import { MissilesStatus } from "../types/enum/MissilesStatus";
 
-let setTimeOut = []
+let setTimeOutArray = []
 
 export const handlingMissile = (socket: Socket) => {
     //coonect shocket
@@ -36,17 +36,19 @@ export const handlingMissile = (socket: Socket) => {
 
         //fet speed of missels for setTimeout
         const misseileFromDb = await getMissileByName(attackMissile.missile)
-
-        setTimeout(() => {
+        const idSetTimeOut = setTimeout(() => {
             updatStatusMissiles(id_attack, MissilesStatus.Hit);
         }, misseileFromDb.speed! * 1000);
-    });
 
-        //add to user attact missile
+        //add socket.id and idSetTimeOut to global Array
+        setTimeOutArray.push({socketId: socket.id, idOfTimeOut: idSetTimeOut})
+
 
         //updat all users 
+        const socketId = socket.id
         socket.emit("new-attack", {
-            missile,
+            socketId,
+            misseileFromDb,
             loction: attackMissile.loction,
             create_at: new Date(),
         });
