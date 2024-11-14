@@ -6,6 +6,7 @@ import {Server} from 'socket.io'
 import authRouter from "./routes/authRouter";
 import { connectToDb } from "./config/connectToDb";
 import { handlingMissile } from "./shocket.io/handlingMissile";
+import organizationRouter from "./routes/organizationRouter";
 
 
 const PORT = process.env.PORT || 770
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/auth", authRouter)
+app.use("/api/organization", organizationRouter)
 
 httpServer.listen(PORT, ()=> {
     console.log(`http://localhost:${PORT}`);

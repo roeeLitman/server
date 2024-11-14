@@ -72,7 +72,7 @@ const userLogin = async (user) => {
             username: userFromDatabase.username,
             detailsOnOrganization: userFromDatabase.detailsOnOrganization,
         }, process.env.JWT_SECRET, { expiresIn: "10m" });
-        return token;
+        return { token, user_id: userFromDatabase._id, username: userFromDatabase.username };
     }
     catch (err) {
         throw err;
