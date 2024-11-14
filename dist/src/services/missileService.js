@@ -13,14 +13,14 @@ const CheckIfCanRnove = async (namesOfMissiles, attackMissile) => {
             listMissileFromDB.push(await missiles_1.default.findOne({ name: missile }).lean());
         }
         if (listMissileFromDB.length === 0)
-            return false;
+            return;
         // check if 1 can rmove attackMissile
         for (const missile of listMissileFromDB) {
             if (missile?.intercepts.includes(attackMissile)) {
-                return true;
+                return { name: missile.name, speed: missile.speed, price: missile.price };
             }
         }
-        return false;
+        return;
     }
     catch (err) {
         console.log(err);

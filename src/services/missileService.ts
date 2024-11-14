@@ -9,14 +9,14 @@ export const CheckIfCanRnove = async (namesOfMissiles: string[], attackMissile:s
             listMissileFromDB.push(await ModelMissile.findOne({name: missile}).lean())
         }
 
-        if(listMissileFromDB.length === 0) return false
+        if(listMissileFromDB.length === 0) return 
         // check if 1 can rmove attackMissile
         for (const missile of listMissileFromDB) {
             if(missile?.intercepts.includes(attackMissile)){
-                return true
+                return {name: missile.name, speed: missile.speed, price: missile.price}
             }
         }
-        return false
+        return 
 
 
     } catch (err) {
