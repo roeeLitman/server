@@ -29,6 +29,6 @@ app.use(cors());
 
 app.use("/api/auth", authRouter)
 
-app.listen(PORT, ()=> {
+httpServer.listen(PORT, ()=> {
     console.log(`http://localhost:${PORT}`);
 })
