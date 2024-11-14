@@ -31,7 +31,7 @@ export const handlingMissile = (socket: Socket) => {
         await rmoveOneMissile(attackMissile.missile, attackMissile.id_user);
 
         //create new attac
-        await createNewAttack()
+        await createNewAttack(attackMissile.username, attackMissile.missile, new Date, attackMissile.loction)
 
     //     setTimeout(() => {
     //         updatStatusMissiles(id_attack, MissilesStatus.Hit);

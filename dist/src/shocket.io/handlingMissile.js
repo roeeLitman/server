@@ -21,7 +21,7 @@ const handlingMissile = (socket) => {
         //remove 1 missile from user
         await (0, user_1.rmoveOneMissile)(attackMissile.missile, attackMissile.id_user);
         //create new attac
-        await (0, attackServise_1.createNewAttack)();
+        await (0, attackServise_1.createNewAttack)(attackMissile.username, attackMissile.missile, new Date, attackMissile.loction);
         //     setTimeout(() => {
         //         updatStatusMissiles(id_attack, MissilesStatus.Hit);
         //     }, speed! * 1000);

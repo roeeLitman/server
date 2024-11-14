@@ -25,3 +25,10 @@ export const CheckIfCanRnove = async (namesOfMissiles: string[], attackMissile:s
     }
 
 };
+
+export const getMissileByName = async (nameMissile: string) => {
+    const missileFromDb = await ModelMissile.findOne({name:nameMissile})
+    return {name: missileFromDb?.name, speed: missileFromDb?.speed, intercepts: missileFromDb?.intercepts, price: missileFromDb?.price}
+ }
+
+
