@@ -4,6 +4,7 @@ import { AttackMissile } from "../types/DTO/AttackMissile";
 import {  getAllMissileOfUser, returnMissileByNameFromUser, rmoveOneMissile } from "../services/user";
 import { DefensiveMissile } from "../types/DTO/DefensiveMissile";
 import { CheckIfCanRnove } from "../services/missileService";
+import { createNewAttack } from "../services/attackServise";
 
 let setTimeOut = []
 
@@ -19,20 +20,23 @@ export const handlingMissile = (socket: Socket) => {
     //listen to new Attack Missile
     socket.on("sendAttackMissile", async (attackMissile: AttackMissile) => {
     
-        //chck if i can send missile
+        //check if i can send missile
         const attackMissileFromDB = await returnMissileByNameFromUser(
             attackMissile.missile,
             attackMissile.id_user
         );
         if (!attackMissileFromDB) return;
 
-        //remove 1 from missile
+        //remove 1 missile from user
         await rmoveOneMissile(attackMissile.missile, attackMissile.id_user);
 
-        setTimeout(() => {
-            updatStatusMissiles(id_attack, MissilesStatus.Hit);
-        }, speed! * 1000);
-    });
+        //create new attac
+        await createNewAttack()
+
+    //     setTimeout(() => {
+    //         updatStatusMissiles(id_attack, MissilesStatus.Hit);
+    //     }, speed! * 1000);
+    // });
 
         //add to user attact missile
 

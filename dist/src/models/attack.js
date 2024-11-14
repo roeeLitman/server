@@ -15,7 +15,8 @@ const AttackSchema = new mongoose_1.Schema({
         default: new Date()
     },
     arrived_in: {
-        type: Date
+        type: Date,
+        required: true,
     },
     status: {
         type: String
