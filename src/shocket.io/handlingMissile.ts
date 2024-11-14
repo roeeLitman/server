@@ -5,6 +5,8 @@ import {  getAllMissileOfUser, returnMissileByNameFromUser, rmoveOneMissile } fr
 import { DefensiveMissile } from "../types/DTO/DefensiveMissile";
 import { CheckIfCanRnove } from "../services/missileService";
 
+let setTimeOut = []
+
 export const handlingMissile = (socket: Socket) => {
     //coonect shocket
     console.log(`[socket.io] New Connection ${socket.id}`);
@@ -17,18 +19,20 @@ export const handlingMissile = (socket: Socket) => {
     //listen to new Attack Missile
     socket.on("sendAttackMissile", async (attackMissile: AttackMissile) => {
     
-        //chck if i can sen missile
-        const missile = await returnMissileByNameFromUser(
+        //chck if i can send missile
+        const attackMissileFromDB = await returnMissileByNameFromUser(
             attackMissile.missile,
             attackMissile.id_user
         );
-        if (!missile) return;
+        if (!attackMissileFromDB) return;
 
         //remove 1 from missile
         await rmoveOneMissile(attackMissile.missile, attackMissile.id_user);
 
-        //add set timiOut 
-            // emit on attack hit
+        setTimeout(() => {
+            updatStatusMissiles(id_attack, MissilesStatus.Hit);
+        }, speed! * 1000);
+    });
 
         //add to user attact missile
 
@@ -47,8 +51,10 @@ export const handlingMissile = (socket: Socket) => {
         if(!missileList) return
 
         //check if arsanal can hit them
-        const isCanRnove = CheckIfCanRnove(missileList, defensiveMissile.missile.name)
+        const isCanRnove = await CheckIfCanRnove(missileList, defensiveMissile.missile.name)
+        if(!isCanRnove) return
         //check if can to rmove attack
+        
         //send missele defensive
     })
 };
