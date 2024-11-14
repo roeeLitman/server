@@ -71,7 +71,7 @@ export const userLogin = async (user: UserDTO) => {
             process.env.JWT_SECRET as string,
             { expiresIn: "10m" }
         );
-        return token
+        return {token, user_id: userFromDatabase._id, username: userFromDatabase.username}
     } catch (err) {
         throw err;
     }
