@@ -27,6 +27,8 @@ export const initDataBase = async () => {
 
 export const createNewUser = async (user: UserDTO) => {
     try {
+        console.log(user);
+        
         // hash password
         const encPass = await hash(user.password, 10);
         user.password = encPass;

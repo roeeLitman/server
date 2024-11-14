@@ -32,6 +32,7 @@ const initDataBase = async () => {
 exports.initDataBase = initDataBase;
 const createNewUser = async (user) => {
     try {
+        console.log(user);
         // hash password
         const encPass = await (0, bcrypt_1.hash)(user.password, 10);
         user.password = encPass;
