@@ -5,6 +5,7 @@ import http from 'http'
 import {Server} from 'socket.io'
 import authRouter from "./routes/authRouter";
 import { connectToDb } from "./config/connectToDb";
+import { handlingMissile } from "./shocket.io/handlingMissile";
 
 
 const PORT = process.env.PORT || 770
@@ -18,8 +19,8 @@ export const io = new Server(httpServer, {
     }
 })
 
-io.on("connection", ()=>{console.log("you are connected");
-})
+io.on("connection", handlingMissile);
+
 
 connectToDb()
 
