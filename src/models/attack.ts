@@ -7,6 +7,7 @@ interface IAttack extends Document {
     create_at: Date
     arrived_in: Number
     status: MissilesStatus
+    loction:string
     
 }
 
@@ -29,6 +30,10 @@ const AttackSchema = new Schema<IAttack>({
     },
     status:{
         type: String
+    },
+    loction:{
+        type: String,
+        required: true,
     }
 
 });

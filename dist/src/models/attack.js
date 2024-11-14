@@ -20,6 +20,10 @@ const AttackSchema = new mongoose_1.Schema({
     },
     status: {
         type: String
+    },
+    loction: {
+        type: String,
+        required: true,
     }
 });
 exports.default = (0, mongoose_1.model)("Attacks", AttackSchema);

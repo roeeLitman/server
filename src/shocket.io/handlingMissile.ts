@@ -35,10 +35,11 @@ export const handlingMissile = (socket: Socket) => {
             attackMissile.id_user
         );
         if (!attackMissileFromDB) return;
-
+        
+        
         //remove 1 missile from user
         await rmoveOneMissile(attackMissile.missile, attackMissile.id_user);
-
+        
         //create new attac
         const id_attack = await createNewAttack(
             attackMissile.username,
@@ -46,7 +47,7 @@ export const handlingMissile = (socket: Socket) => {
             new Date(),
             attackMissile.loction
         );
-
+        
         //fet speed of missels for setTimeout
         const misseileFromDb = await getMissileByName(attackMissile.missile);
         const idSetTimeOut = setTimeout(() => {

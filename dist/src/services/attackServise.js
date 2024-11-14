@@ -19,7 +19,7 @@ const updatStatusMissiles = async (id_attack, status) => {
     const currentAttack = await attack_1.default.findById(id_attack);
     if (currentAttack?.status === MissilesStatus_1.MissilesStatus.Intercepted)
         return;
-    attack_1.default.findByIdAndUpdate(id_attack, { status: status });
+    await attack_1.default.findByIdAndUpdate(id_attack, { status: status });
 };
 exports.updatStatusMissiles = updatStatusMissiles;
 const thereEnoughTime = async (id_attack, speed) => {
