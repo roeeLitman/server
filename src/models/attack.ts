@@ -5,7 +5,7 @@ interface IAttack extends Document {
     username:string
     nameOfMissel: string
     create_at: Date
-    arrived_in: Date
+    arrived_in: Number
     status: MissilesStatus
     
 }
@@ -24,7 +24,7 @@ const AttackSchema = new Schema<IAttack>({
         default: new Date()
     },
     arrived_in:{
-        type: Date,
+        type: Number,
         required: true,
     },
     status:{

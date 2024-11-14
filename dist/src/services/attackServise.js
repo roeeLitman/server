@@ -6,8 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNewAttack = void 0;
 const attack_1 = __importDefault(require("../models/attack"));
 const MissilesStatus_1 = require("../types/enum/MissilesStatus");
+const missileService_1 = require("./missileService");
 const createNewAttack = async (username, nameOfMisselAttack, timeToHit, loction) => {
-    const newAttack = await new attack_1.default({ username, nameOfMissel: nameOfMisselAttack, timeToHit, status: MissilesStatus_1.MissilesStatus.Launched, loction, arrived_in:  });
+    const misseileFromDb = await (0, missileService_1.getMissileByName)(nameOfMisselAttack);
+    const arrivedMissile = timeToHit.getMilliseconds() + misseileFromDb.speed * 1000;
+    const newAttack = await new attack_1.default({ username, nameOfMissel: nameOfMisselAttack, timeToHit, status: MissilesStatus_1.MissilesStatus.Launched, loction, arrived_in: arrivedMissile });
     await newAttack.save();
     return newAttack._id;
 };
